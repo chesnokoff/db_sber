@@ -35,6 +35,7 @@ loses power, all data in memory can be lost._"
 Как я понял, конкурент MongoDB и Касандры
 Не смог найти что-то инересное про данное СУБД на независимых источниках, поэтому придется ссылаться на сайт самой СУБД, где [явно утверждается](https://www.scylladb.com/2018/08/28/scylla-fault-tolerance/), 
 что данная СУБД  __chooses availability and partition tolerance over consistency, because it's impossible to be both consistent and highly available during a network partition and if we sacrifice consistency, we can be highly available__
+
 **ИТОГ**: ScyllaDB AP и жертвует C
 
 ### ArendataDB
@@ -46,4 +47,5 @@ Arenadata DB (ADB) – распределенная СУБД, использую
 запускаются их зеркальные сегменты, репликация данных для которых происходит с помощью используемой в СУБД PostgreSQL технологии опережающей записи (Wright Ahead Log, WAL – 
 все изменения таблиц и индексов записываются в файл только после их занесения в журнал). Почитав [документацию](https://docs.arenadata.io/adb/index.html) и 
 [рекламный сайт](https://arenadata.tech/products/arenadata-db/) делаю вывод, точно есть C и P, но видимо нет A (хотя по ощущениям есть все 3, но просто A и C как бы делят в соотношении 20 на 80)
-ИТОГ: Точно есть P, пункт C немного урезан в целях чтобы было A.
+
+**ИТОГ**: Точно есть P, пункт C немного урезан в целях чтобы было A.
