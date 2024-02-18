@@ -34,8 +34,7 @@ loses power, all data in memory can be lost._"
 ### ScyllaDB
 Как я понял, конкурент MongoDB и Касандры
 Не смог найти что-то инересное про данное СУБД на независимых источниках, поэтому придется ссылаться на сайт самой СУБД, где [явно утверждается](https://www.scylladb.com/2018/08/28/scylla-fault-tolerance/), 
-что данная СУБД _chooses availability and partition tolerance over consistency, because
-__It's impossible to be both consistent and highly available during a network partition and if we sacrifice consistency, we can be highly available__
+что данная СУБД  __chooses availability and partition tolerance over consistency, because it's impossible to be both consistent and highly available during a network partition and if we sacrifice consistency, we can be highly available__
 **ИТОГ**: ScyllaDB AP и жертвует C
 
 ### ArendataDB
