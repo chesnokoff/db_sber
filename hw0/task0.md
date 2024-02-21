@@ -26,26 +26,29 @@
 ### DragonFly
 Проанализировав статьи с [хабра](https://habr.com/ru/articles/745406/) и [opennet](https://www.opennet.ru/opennews/art.shtml?num=57279), я понял, что данная СУБД - 
 переосмысление и улучшение популярной СУБД Redis. Одна из основных фишек - использование 2Q кэширования вместо LRU. На официальном сайте уже [указан](https://www.dragonflydb.io/faq/advantages-and-disadvantages-of-in-memory-database)
-недостаток этой In-Memory database:"_The biggest disadvantage is that memory is volatile, which means if the system crashes or 
-loses power, all data in memory can be lost._"
+недостаток этой In-Memory database
+> The biggest disadvantage is that memory is volatile, which means if the system crashes or 
+loses power, all data in memory can be lost.
 
 **ИТОГ**: на основе всей прочитанной информации делаем вывод, что DragonFly CA, но не P
 
 ### ScyllaDB
 Как я понял, конкурент MongoDB и Касандры
 Не смог найти что-то инересное про данное СУБД на независимых источниках, поэтому придется ссылаться на сайт самой СУБД, где [явно утверждается](https://www.scylladb.com/2018/08/28/scylla-fault-tolerance/), 
-что данная СУБД  __chooses availability and partition tolerance over consistency, because it's impossible to be both consistent and highly available during a network partition and if we sacrifice consistency, we can be highly available__
+что данная СУБД 
+> chooses availability and partition tolerance over consistency, because it's impossible to be both consistent and highly available during a network partition and if we sacrifice consistency, we can be highly available
 
 **ИТОГ**: ScyllaDB AP и жертвует C
 
 ### ArendataDB
-Arenadata DB (ADB) – распределенная СУБД, использующая концепцию MPP 
-(massively parallel processing, массивно-параллельные вычисления) и основанная на СУБД с открытым исходным кодом – Greenplum.
+> Arenadata DB (ADB) – распределенная СУБД, использующая концепцию MPP (massively parallel processing, массивно-параллельные вычисления) и основанная на СУБД с открытым исходным кодом – Greenplum.
 
 Архитектура ADB – классический кластер: несколько серверов-сегментов, один сервер-мастер и один резервный, соединенные между собой быстрыми сетями (10G Ethernet или Infiniband). 
 В каждом сервер-сегменте есть несколько сегментов (инстансов) PostgreSQL, содержащих данные. В случае отказа одного или нескольких сегментов они помечаются как сбойные и вместо них 
 запускаются их зеркальные сегменты, репликация данных для которых происходит с помощью используемой в СУБД PostgreSQL технологии опережающей записи (Wright Ahead Log, WAL – 
-все изменения таблиц и индексов записываются в файл только после их занесения в журнал). Почитав [документацию](https://docs.arenadata.io/adb/index.html) и 
-[рекламный сайт](https://arenadata.tech/products/arenadata-db/) делаю вывод, точно есть C и P, но видимо нет A (хотя по ощущениям есть все 3, но просто A и C как бы делят в соотношении 20 на 80)
+все изменения таблиц и индексов записываются в файл только после их занесения в журнал).
 
-**ИТОГ**: Точно есть P, пункт C немного урезан в целях чтобы было A.
+Почитав [документацию](https://docs.arenadata.io/adb/index.html) и 
+[рекламный сайт](https://arenadata.tech/products/arenadata-db/) делаю вывод, точно есть P в силу нескольких серверов. Точно есть С так как данная СУБД сделана для бухучета и важна актуальность данных. Но видимо нет A (хотя это странно, так как позиционируется как СУБД для аналитиков, но это видимо в последнюю очередь)
+
+**ИТОГ**: PC но нет A.
