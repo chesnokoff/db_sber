@@ -1,0 +1,43 @@
+# redis
+version: "3.8"
+name: redisdbnew
+networks:
+    redis_network:
+        driver: bridge
+
+volumes:
+ rdb:
+    name: rdb
+ rdbcfg:
+    name: rdbcfg
+ rtdb:
+    name: rtdb
+
+services:
+  redisdb:
+    image: redis
+    container_name: redisdb        
+    ports:
+      - 6379:6379
+    volumes:
+      - rdb:/var/lib/redis
+      - rdbcfg:/usr/local/etc/redis/redis.conf  
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - redis_network
+ 
+  
+  redisinsight:
+    image: redislabs/redisinsight
+    container_name: redisinsight  
+    ports:
+      - '8001:8001'
+    volumes:
+      - rtdb:/db 
+    networks:
+      - redis_network
+
+ 
+
+   
