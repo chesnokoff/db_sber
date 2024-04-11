@@ -9,4 +9,7 @@ CORS как на картинке ниже
 Теперь открываем исходный html, предварительно заменив строку 25 на 
 `Remote: new PouchDB('http://localhost:5984/sber')`
 Кликаем на sync и видим фамилию вместе с каким-то мусором. Победа
+
 ![img.png](pic/name.png)
+
+## [Ссылка на github pages](https://chesnokoff.github.io/db_sber/)
